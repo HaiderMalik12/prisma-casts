@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ApolloClient, { gql } from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
 
 import './index.css';
 import App from './App';
@@ -33,5 +34,10 @@ client
     `
   })
   .then(results => console.log(results));
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  <ApolloProvider client={client}>
+    <App />
+  </ApolloProvider>,
+  document.getElementById('root')
+);
 registerServiceWorker();
