@@ -13,7 +13,7 @@ const resolvers = {
       return ctx.db.query.post({ where: { id } }, info);
     },
     courseFeed(parent, args, ctx, info) {
-      return ctx.db.query.courses({ where: { isPublished: true } }, info);
+      return ctx.db.query.courses({ where: { isPublished: false } }, info);
     }
   },
   Mutation: {
