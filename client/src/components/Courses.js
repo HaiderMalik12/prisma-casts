@@ -36,10 +36,11 @@ const Courses = () => {
           return data.courseFeed.map(
             ({ id, description, name, isPublished }) => {
               return (
-                <div key={id}>
-                  <p>Name: {name} </p>
-                  <p>Description: {description} </p>
-                  <hr />
+                <div key={id} className="card container">
+                  <div className="card-body">
+                    <h5 className="card-title">{name}</h5>
+                    <p className="card-text"> {description} </p>
+                  </div>
                 </div>
               );
             }
