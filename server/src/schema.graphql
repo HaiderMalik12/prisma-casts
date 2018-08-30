@@ -24,4 +24,5 @@ type Mutation {
   deletePost(id: ID!): Post
   publish(id: ID!): Post
   signup(email: String!, password: String!): AuthPayload
+  login(email: String!, password: String!): AuthPayload
 }

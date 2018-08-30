@@ -64,6 +64,21 @@ async function signup(parent, { email, password }, ctx, info) {
     user
   };
 }
+async function login(parent, { email, password }, ctx, info) {
+  const user = await ctx.db.query.user({ where: { email } }, `{id password}`);
+  if (!user) {
+    throw new Error('No such a user');
+  }
+  const matched = await bcrypt.compare(password, user.password);
+  if (!matched) {
+    throw new Error('Invalid password');
+  }
+  const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
+  return {
+    token,
+    user
+  };
+}
 module.exports = {
   createDraft,
   createCourse,
@@ -71,5 +86,6 @@ module.exports = {
   deletePost,
   deleteCourse,
   publish,
-  signup
+  signup,
+  login
 };
