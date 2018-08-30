@@ -10,3 +10,8 @@ type Course {
   name: String!
   description: String!
 }
+type User {
+  id: ID! @unique
+  email: String! @unique
+  password: String!
+}

@@ -1,3 +1,6 @@
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+
 function createDraft(parent, { title, text }, ctx, info) {
   return ctx.db.mutation.createPost(
     {
@@ -44,11 +47,29 @@ function publish(parent, { id }, ctx, info) {
     info
   );
 }
+async function signup(parent, { email, password }, ctx, info) {
+  const hash = await bcrypt.hash(password, 10);
+  const user = await ctx.db.mutation.createUser(
+    {
+      data: {
+        email,
+        password: hash
+      }
+    },
+    `{id}`
+  );
+  const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
+  return {
+    token,
+    user
+  };
+}
 module.exports = {
   createDraft,
   createCourse,
   updateCourse,
   deletePost,
   deleteCourse,
-  publish
+  publish,
+  signup
 };
