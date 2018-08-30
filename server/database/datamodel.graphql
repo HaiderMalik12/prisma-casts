@@ -9,9 +9,11 @@ type Course {
   isPublished: Boolean! @default(value: "false")
   name: String!
   description: String!
+  postedBy: User
 }
 type User {
   id: ID! @unique
   email: String! @unique
   password: String!
+  courses: [Course!]!
 }

@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/haidermalik504/demo-app/dev
-# timestamp: Thu Aug 30 2018 17:42:26 GMT+0500 (PKT)
+# timestamp: Thu Aug 30 2018 18:24:22 GMT+0500 (PKT)
 
 type AggregateCourse {
   count: Int!
@@ -23,6 +23,7 @@ type Course implements Node {
   isPublished: Boolean!
   name: String!
   description: String!
+  postedBy(where: UserWhereInput): User
 }
 
 """A connection to a list of items."""
@@ -36,6 +37,18 @@ type CourseConnection {
 }
 
 input CourseCreateInput {
+  isPublished: Boolean
+  name: String!
+  description: String!
+  postedBy: UserCreateOneWithoutCoursesInput
+}
+
+input CourseCreateManyWithoutPostedByInput {
+  create: [CourseCreateWithoutPostedByInput!]
+  connect: [CourseWhereUniqueInput!]
+}
+
+input CourseCreateWithoutPostedByInput {
   isPublished: Boolean
   name: String!
   description: String!
@@ -115,6 +128,33 @@ input CourseUpdateInput {
   isPublished: Boolean
   name: String
   description: String
+  postedBy: UserUpdateOneWithoutCoursesInput
+}
+
+input CourseUpdateManyWithoutPostedByInput {
+  create: [CourseCreateWithoutPostedByInput!]
+  connect: [CourseWhereUniqueInput!]
+  disconnect: [CourseWhereUniqueInput!]
+  delete: [CourseWhereUniqueInput!]
+  update: [CourseUpdateWithWhereUniqueWithoutPostedByInput!]
+  upsert: [CourseUpsertWithWhereUniqueWithoutPostedByInput!]
+}
+
+input CourseUpdateWithoutPostedByDataInput {
+  isPublished: Boolean
+  name: String
+  description: String
+}
+
+input CourseUpdateWithWhereUniqueWithoutPostedByInput {
+  where: CourseWhereUniqueInput!
+  data: CourseUpdateWithoutPostedByDataInput!
+}
+
+input CourseUpsertWithWhereUniqueWithoutPostedByInput {
+  where: CourseWhereUniqueInput!
+  update: CourseUpdateWithoutPostedByDataInput!
+  create: CourseCreateWithoutPostedByInput!
 }
 
 input CourseWhereInput {
@@ -250,6 +290,7 @@ input CourseWhereInput {
 
   """All values not ending with the given string."""
   description_not_ends_with: String
+  postedBy: UserWhereInput
 }
 
 input CourseWhereUniqueInput {
@@ -576,6 +617,7 @@ type User implements Node {
   id: ID!
   email: String!
   password: String!
+  courses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course!]
 }
 
 """A connection to a list of items."""
@@ -589,6 +631,17 @@ type UserConnection {
 }
 
 input UserCreateInput {
+  email: String!
+  password: String!
+  courses: CourseCreateManyWithoutPostedByInput
+}
+
+input UserCreateOneWithoutCoursesInput {
+  create: UserCreateWithoutCoursesInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutCoursesInput {
   email: String!
   password: String!
 }
@@ -663,6 +716,26 @@ input UserSubscriptionWhereInput {
 input UserUpdateInput {
   email: String
   password: String
+  courses: CourseUpdateManyWithoutPostedByInput
+}
+
+input UserUpdateOneWithoutCoursesInput {
+  create: UserCreateWithoutCoursesInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutCoursesDataInput
+  upsert: UserUpsertWithoutCoursesInput
+}
+
+input UserUpdateWithoutCoursesDataInput {
+  email: String
+  password: String
+}
+
+input UserUpsertWithoutCoursesInput {
+  update: UserUpdateWithoutCoursesDataInput!
+  create: UserCreateWithoutCoursesInput!
 }
 
 input UserWhereInput {
@@ -794,6 +867,9 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   password_not_ends_with: String
+  courses_every: CourseWhereInput
+  courses_some: CourseWhereInput
+  courses_none: CourseWhereInput
 }
 
 input UserWhereUniqueInput {
