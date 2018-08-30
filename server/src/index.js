@@ -14,6 +14,9 @@ const resolvers = {
     },
     courseFeed(parent, args, ctx, info) {
       return ctx.db.query.courses({ where: { isPublished: false } }, info);
+    },
+    course(parent, { id }, ctx, info) {
+      return ctx.db.query.course({ where: { id } }, info);
     }
   },
   Mutation: {

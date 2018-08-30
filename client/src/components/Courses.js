@@ -1,6 +1,7 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 import { gql } from 'apollo-boost';
+import { Link } from 'react-router-dom';
 
 const renderCourses = ({ data, error, loading }) => {
   if (loading) return <p>...Loading</p>;
@@ -40,6 +41,9 @@ const Courses = () => {
                   <div className="card-body">
                     <h5 className="card-title">{name}</h5>
                     <p className="card-text"> {description} </p>
+                    <Link to={`course/${id}/edit`} className="btn btn-primary">
+                      Edit
+                    </Link>
                   </div>
                 </div>
               );
