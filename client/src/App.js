@@ -5,6 +5,7 @@ import Courses from './components/Courses';
 import CreateCourse from './components/CreateCourse';
 import Header from './components/Header';
 import EditCourse from './components/EditCourse';
+import Auth from './components/Auth';
 
 class App extends Component {
   render() {
@@ -13,6 +14,7 @@ class App extends Component {
         <Header />
         <Switch>
           <Route exact path="/" component={Courses} />
+          <Route exact path="/login" component={Auth} />
           <Route exact path="/create" component={CreateCourse} />
           <Route exact path="/course/:id/edit" component={EditCourse} />
         </Switch>
