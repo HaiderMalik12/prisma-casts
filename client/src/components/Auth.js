@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Auth.css';
 import { gql } from 'apollo-boost';
 import { Mutation } from 'react-apollo';
+import { AUTH_TOKEN } from '../constants';
 
 class Auth extends Component {
   state = {
@@ -15,7 +16,8 @@ class Auth extends Component {
   };
   onSubmitHandler = async (login, e) => {
     e.preventDefault();
-    await login();
+    const authResults = await login();
+    localStorage.setItem(AUTH_TOKEN, authResults.data.login.token);
     this.props.history.push('/');
   };
   render() {
