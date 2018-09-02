@@ -8,6 +8,7 @@ import EditCourse from './components/EditCourse';
 import Auth from './components/Auth';
 import { AuthRoute, UnauthRoute } from 'react-router-auth';
 import { AUTH_TOKEN } from './constants';
+import NotFound from './components/NotFound';
 
 class App extends Component {
   render() {
@@ -45,6 +46,7 @@ class App extends Component {
             redirectTo="/login"
             authenticated={isAuth}
           />
+          <Route component={NotFound} />
         </Switch>
       </div>
     );

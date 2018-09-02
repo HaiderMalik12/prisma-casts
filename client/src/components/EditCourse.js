@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { gql } from 'apollo-boost';
 import { Query, Mutation } from 'react-apollo';
+import ErrorMessage from './ErrorMessage';
 class EditCourse extends Component {
   state = {
     name: '',
@@ -20,65 +21,69 @@ class EditCourse extends Component {
       >
         {({ data: { course }, error, loading }) => {
           if (loading) return <div>...Loading</div>;
-          if (error) return <div>Error</div>;
+          if (error) return <ErrorMessage error={error} />;
           return (
             <Mutation
               mutation={UPDATE_COURSE_MUTATION}
               onCompleted={() => this.props.history.push('/')}
             >
-              {(updateCourse, { data, error, loading }) => (
-                <div className="container">
-                  <div className="card">
-                    <div className="card-title">
-                      <h3>Create Course</h3>
-                    </div>
-                    <div className="card-body">
-                      <form
-                        onSubmit={async e => {
-                          e.preventDefault();
-                          await updateCourse({
-                            variables: {
-                              id: this.props.match.params.id,
-                              name: this.state.name,
-                              description: this.state.description
-                            }
-                          });
-                        }}
-                      >
-                        <div className="form-group">
-                          <label htmlFor="name">Name</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            name="name"
-                            placeholder="Enter name"
-                            defaultValue={course.name}
-                            onChange={this.onChangeHandler}
-                          />
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="description">Description</label>
-                          <textarea
-                            className="form-control"
-                            name="description"
-                            placeholder="Enter description"
-                            rows="3"
-                            defaultValue={course.description}
-                            onChange={this.onChangeHandler}
-                          />
-                        </div>
-
-                        <button
-                          type="submit"
-                          className="btn btn-primary btn-block"
+              {(updateCourse, { data, error, loading }) => {
+                if (loading) return <div>...Loading</div>;
+                if (error) return <ErrorMessage error={error} />;
+                return (
+                  <div className="container">
+                    <div className="card">
+                      <div className="card-title">
+                        <h3>Create Course</h3>
+                      </div>
+                      <div className="card-body">
+                        <form
+                          onSubmit={async e => {
+                            e.preventDefault();
+                            await updateCourse({
+                              variables: {
+                                id: this.props.match.params.id,
+                                name: this.state.name,
+                                description: this.state.description
+                              }
+                            });
+                          }}
                         >
-                          Save
-                        </button>
-                      </form>
+                          <div className="form-group">
+                            <label htmlFor="name">Name</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="name"
+                              placeholder="Enter name"
+                              defaultValue={course.name}
+                              onChange={this.onChangeHandler}
+                            />
+                          </div>
+                          <div className="form-group">
+                            <label htmlFor="description">Description</label>
+                            <textarea
+                              className="form-control"
+                              name="description"
+                              placeholder="Enter description"
+                              rows="3"
+                              defaultValue={course.description}
+                              onChange={this.onChangeHandler}
+                            />
+                          </div>
+
+                          <button
+                            type="submit"
+                            className="btn btn-primary btn-block"
+                          >
+                            Save
+                          </button>
+                        </form>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
+                );
+              }}
             </Mutation>
           );
         }}

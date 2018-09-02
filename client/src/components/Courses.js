@@ -3,6 +3,7 @@ import { Query, Mutation } from 'react-apollo';
 import { gql } from 'apollo-boost';
 import { Link } from 'react-router-dom';
 import { AUTH_TOKEN } from '../constants';
+import ErrorMessage from './ErrorMessage';
 
 class Courses extends React.Component {
   render() {
@@ -12,7 +13,7 @@ class Courses extends React.Component {
         <Query query={COURSE_FEED_QUERY}>
           {({ data, error, loading }) => {
             if (loading) return <p>...Loading</p>;
-            if (error) return <p>Error</p>;
+            if (error) return <ErrorMessage error={error} />;
             return data.courseFeed.map(
               ({ id, description, name, isPublished }) => {
                 return (
