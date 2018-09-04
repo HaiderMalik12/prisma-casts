@@ -4,11 +4,13 @@ require('dotenv').config();
 const Query = require('./resolvers/Query');
 const Mutation = require('./resolvers/Mutation');
 const AuthPayload = require('./resolvers/AuthPayload');
+const CourseFeed = require('./resolvers/CourseFeed');
 
 const resolvers = {
   Query,
   Mutation,
-  AuthPayload
+  AuthPayload,
+  CourseFeed
 };
 
 const server = new GraphQLServer({
