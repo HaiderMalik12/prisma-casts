@@ -4,7 +4,7 @@ type Query {
   feed: [Post!]!
   drafts: [Post!]!
   post(id: ID!): Post
-  courseFeed: [Course!]!
+  courseFeed(first: Int, skip: Int): [Course!]!
   course(id: ID!): Course!
 }
 type AuthPayload {
