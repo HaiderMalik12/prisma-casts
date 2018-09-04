@@ -9,6 +9,7 @@ import Auth from './components/Auth';
 import { AuthRoute, UnauthRoute } from 'react-router-auth';
 import { AUTH_TOKEN } from './constants';
 import NotFound from './components/NotFound';
+import SearchCourse from './components/SearchCourse';
 
 class App extends Component {
   render() {
@@ -46,6 +47,7 @@ class App extends Component {
             redirectTo="/login"
             authenticated={isAuth}
           />
+          <Route exact path="/search" component={SearchCourse} />
           <Route component={NotFound} />
         </Switch>
       </div>

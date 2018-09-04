@@ -31,6 +31,11 @@ class Header extends React.Component {
                   Courses
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/search">
+                  Search
+                </Link>
+              </li>
               {authToken && (
                 <li className="nav-item">
                   <Link className="nav-link" to="/create">
