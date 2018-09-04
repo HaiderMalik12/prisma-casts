@@ -7,8 +7,13 @@ function drafts(parent, args, ctx, info) {
 function post(parent, { id }, ctx, info) {
   return ctx.db.query.post({ where: { id } }, info);
 }
-async function courseFeed(parent, { skip, first }, ctx, info) {
-  const courses = await ctx.db.query.courses({ skip, first }, `{id}`);
+async function courseFeed(parent, { skip, first, filter }, ctx, info) {
+  const where = filter
+    ? {
+        OR: [{ name_contains: filter }, { description_contains: filter }]
+      }
+    : {};
+  const courses = await ctx.db.query.courses({ where, skip, first }, `{id}`);
   const selectionField = `{
    aggregate{
      count
