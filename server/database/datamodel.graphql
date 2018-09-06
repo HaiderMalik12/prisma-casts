@@ -9,6 +9,7 @@ type Course {
   isPublished: Boolean! @default(value: "false")
   name: String!
   description: String!
+  createdAt: DateTime!
   postedBy: User
 }
 type User {

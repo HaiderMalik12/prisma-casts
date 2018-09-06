@@ -1,5 +1,5 @@
-# source: https://eu1.prisma.sh/haidermalik504/demo-app/dev
-# timestamp: Thu Aug 30 2018 18:24:22 GMT+0500 (PKT)
+# source: https://us1.prisma.sh/haidermalik504/prismaDB/dev
+# timestamp: Thu Sep 06 2018 08:47:50 GMT+0500 (PKT)
 
 type AggregateCourse {
   count: Int!
@@ -24,6 +24,7 @@ type Course implements Node {
   name: String!
   description: String!
   postedBy(where: UserWhereInput): User
+  createdAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -72,10 +73,10 @@ enum CourseOrderByInput {
   name_DESC
   description_ASC
   description_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type CoursePreviousValues {
@@ -83,6 +84,7 @@ type CoursePreviousValues {
   isPublished: Boolean!
   name: String!
   description: String!
+  createdAt: DateTime!
 }
 
 type CourseSubscriptionPayload {
@@ -290,12 +292,36 @@ input CourseWhereInput {
 
   """All values not ending with the given string."""
   description_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
   postedBy: UserWhereInput
 }
 
 input CourseWhereUniqueInput {
   id: ID
 }
+
+scalar DateTime
 
 """
 The `Long` scalar type represents non-fractional signed whole numeric values.

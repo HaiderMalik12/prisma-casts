@@ -44,9 +44,9 @@ class SearchCourse extends Component {
           </div>
         </form>
         {this.state.loading && <Spinner />}
-        {this.state.courses.map(({ name, description }) => {
+        {this.state.courses.map(({id, name, description }) => {
           return (
-            <div className="card container">
+            <div className="card container" key={id}>
               <div className="card-body">
                 <h5 className="card-title">{name}</h5>
                 <p className="card-text"> {description} </p>

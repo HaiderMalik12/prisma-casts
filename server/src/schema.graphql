@@ -1,10 +1,15 @@
-# import Post,Course from "./generated/prisma.graphql"
+# import * from "./generated/prisma.graphql"
 
 type Query {
   feed: [Post!]!
   drafts: [Post!]!
   post(id: ID!): Post
-  courseFeed(first: Int, skip: Int, filter: String): CourseFeed!
+  courseFeed(
+    first: Int
+    skip: Int
+    filter: String
+    orderBy: CourseOrderByInput
+  ): CourseFeed!
   course(id: ID!): Course!
 }
 type CourseFeed {

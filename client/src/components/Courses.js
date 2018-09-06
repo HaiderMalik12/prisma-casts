@@ -16,7 +16,8 @@ class Courses extends React.Component {
     const skip = (page - 1) * COURSES_PER_PAGE;
     return {
       first,
-      skip
+      skip,
+      orderBy: 'createdAt_DESC'
     };
   };
   prevPage = () => {
@@ -139,14 +140,15 @@ export const DELETE_COURSE_MUTATION = gql`
   }
 `;
 export const COURSE_FEED_QUERY = gql`
-  query CourseFeed($first: Int, $skip: Int) {
-    courseFeed(first: $first, skip: $skip) {
+  query CourseFeed($first: Int, $skip: Int, $orderBy: CourseOrderByInput) {
+    courseFeed(first: $first, skip: $skip, orderBy: $orderBy) {
       count
       courses {
         id
         description
         name
         isPublished
+        createdAt
       }
     }
   }
