@@ -65,16 +65,25 @@ class Courses extends React.Component {
                                 mutation={DELETE_COURSE_MUTATION}
                                 variables={{ id }}
                                 update={(cache, { data: { deleteCourse } }) => {
-                                  const { courseFeed } = cache.readQuery({
-                                    query: COURSE_FEED_QUERY
+                                  const { page } = this.state;
+                                  const variables = {
+                                    first: COURSES_PER_PAGE,
+                                    skip: (page - 1) * COURSES_PER_PAGE,
+                                    orderBy: 'createdAt_DESC'
+                                  };
+                                  const data = cache.readQuery({
+                                    query: COURSE_FEED_QUERY,
+                                    variables
                                   });
+
+                                  const index = data.courseFeed.courses.findIndex(
+                                    course => course.id === deleteCourse.id
+                                  );
+                                  data.courseFeed.courses.splice(index, 1);
                                   cache.writeQuery({
                                     query: COURSE_FEED_QUERY,
-                                    data: {
-                                      courseFeed: courseFeed.filter(
-                                        course => course.id !== deleteCourse.id
-                                      )
-                                    }
+                                    data,
+                                    variables
                                   });
                                 }}
                               >
