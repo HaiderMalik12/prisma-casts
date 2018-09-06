@@ -148,7 +148,6 @@ export const COURSE_FEED_QUERY = gql`
         description
         name
         isPublished
-        createdAt
       }
     }
   }
