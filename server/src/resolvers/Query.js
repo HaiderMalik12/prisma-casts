@@ -12,7 +12,7 @@ async function courseFeed(parent, { skip, first, filter, orderBy }, ctx, info) {
     ? {
         OR: [
           { name_contains: filter },
-          { description_contains: filter, orderBy }
+          { description_contains: filter }
         ]
       }
     : {};
