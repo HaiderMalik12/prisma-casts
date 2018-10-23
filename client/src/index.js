@@ -9,14 +9,15 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000'
+	uri: 'http://localhost:4000',
+	disableOffline: true
 });
 ReactDOM.render(
-  <BrowserRouter>
-    <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>
-  </BrowserRouter>,
-  document.getElementById('root')
+	<BrowserRouter>
+		<ApolloProvider client={client}>
+			<App />
+		</ApolloProvider>
+	</BrowserRouter>,
+	document.getElementById('root')
 );
 registerServiceWorker();
